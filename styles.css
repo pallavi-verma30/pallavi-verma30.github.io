@@ -1242,70 +1242,6 @@ main {
 }
 .degree-body p { margin: 0; color: var(--text-dim); font-size: 15px; }
 
-/* ---------- Responsive: tablet (<= 960px) ---------- */
-@media (max-width: 960px) {
-  .hero {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "photo"
-      "eyebrow"
-      "title"
-      "detail";
-    gap: 24px;
-    padding: 30px 0 40px;
-    min-height: 0;
-  }
-  .hero-photo { display: flex; justify-content: center; }
-  .photo-frame { max-width: 260px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
-  .pillars-grid { grid-template-columns: 1fr; }
-  .about-grid { grid-template-columns: 1fr; gap: 32px; }
-  .toolkit-groups { grid-template-columns: 1fr; }
-  .exp { grid-template-columns: 1fr; gap: 28px; }
-  .exp-tabs { flex-direction: row; overflow-x: auto; border-left: none; border-bottom: 2px solid var(--line); }
-  .exp-tab { border-left: none; border-bottom: 2px solid transparent; margin-left: 0; margin-bottom: -2px; white-space: nowrap; }
-  .exp-tab.is-active { border-left-color: transparent; border-bottom-color: var(--accent); }
-  .bot-grid { grid-template-columns: 1fr; }
-  .contact-cards { grid-template-columns: 1fr; }
-  .leadership-list li { grid-template-columns: 1fr; gap: 4px; }
-  .lead-when { font-size: 12px; }
-  .cert-timeline::before { left: 70px; }
-  .cert-timeline li { grid-template-columns: 70px 1fr; gap: 18px; }
-  .cert-timeline li::before { left: 66px; }
-}
-
-/* ---------- Responsive: mobile (<= 720px) ---------- */
-@media (max-width: 720px) {
-  .nav-links { display: none; }
-  .nav-toggle { display: flex; }
-  .nav-cta { display: none; }
-  body.nav-open .nav-links {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 68px;
-    left: 0;
-    right: 0;
-    background: var(--bg-2);
-    border-bottom: 1px solid var(--line);
-    padding: 16px var(--pad-x);
-    gap: 4px;
-  }
-  body.nav-open .nav-links a { padding: 12px 14px; font-size: 15px; }
-
-  .view { padding: 50px 0 70px; }
-
-  .hero-title { font-size: clamp(28px, 7.5vw, 42px); }
-  .hero-now { font-size: 12px; padding: 8px 14px; }
-  .hero-sub { font-size: 16px; }
-  .hero-detail { margin-top: 16px; }
-
-  .stats-grid { grid-template-columns: 1fr; gap: 20px; }
-  .program { padding: 24px 22px; }
-  .program-scale { grid-template-columns: 1fr; gap: 12px; padding: 16px 18px; }
-  .footer-inner { flex-direction: column; }
-}
-
 /* ---------- Field stories ---------- */
 .view-behind-the-work::before {
   content: '';
@@ -1388,116 +1324,109 @@ main {
   background: var(--text-soft);
   opacity: 0.4;
 }
-.story-internal:hover::before { background: var(--accent); opacity: 0.9; }
+.story-internal:hover::before { background: var(--accent); opacity: 0
+/* ============================================================
+   Responsive — three-tier system: 1024 / 768 / 480
+   ============================================================ */
 
-@media (max-width: 720px) {
-  .story { padding: 24px 22px; }
-}
+/* ---------- Tier 1: Tablet (<= 1024px) ----------
+   Multi-column desktop layouts start collapsing toward single column.
+*/
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "photo"
+      "eyebrow"
+      "title"
+      "detail";
+    gap: 24px;
+    padding: 30px 0 40px;
+    min-height: 0;
+  }
+  .hero-photo { display: flex; justify-content: center; }
+  .photo-frame { max-width: 280px; }
 
-/* ---------- AI Bot screenshots grid ---------- */
-.bot-shots-lede {
-  color: var(--text-dim);
-  font-size: 15px;
-  margin: 0 0 18px;
-}
-.bot-shots-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 22px;
-}
-.bot-shots-grid-3 {
-  grid-template-columns: repeat(3, 1fr);
-  align-items: start;
-  gap: 16px;
-}
-.bot-shot {
-  margin: 0;
-  background: var(--bg-2);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 10px;
-  transition: border-color var(--t), transform var(--t);
-  min-width: 0;
-}
-.bot-shot:hover { border-color: var(--accent); transform: translateY(-2px); }
-.bot-shot-frame {
-  width: 100%;
-  max-width: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--bg);
-  border: 1px solid var(--line-soft);
-}
-.bot-shot-frame img {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
-.bot-shot figcaption {
-  margin-top: 10px;
-  color: var(--text-soft);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.01em;
-  text-align: center;
-  line-height: 1.5;
-  padding: 0 4px 4px;
-}
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .pillars-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .toolkit-groups { grid-template-columns: 1fr; }
 
+  .exp { grid-template-columns: 1fr; gap: 28px; }
+  .exp-tabs { flex-direction: row; overflow-x: auto; border-left: none; border-bottom: 2px solid var(--line); }
+  .exp-tab { border-left: none; border-bottom: 2px solid transparent; margin-left: 0; margin-bottom: -2px; white-space: nowrap; }
+  .exp-tab.is-active { border-left-color: transparent; border-bottom-color: var(--accent); }
 
-/* ---------- "Worth a mention" callout (SWAT demoted from card) ---------- */
-.story-note {
-  margin: 36px 0 0;
-  padding: 18px 22px;
-  background: var(--bg-3);
-  border-left: 2px solid var(--accent);
-  border-radius: 6px;
-}
-.story-note p {
-  margin: 0;
-  color: var(--text-dim);
-  font-size: 14px;
-  line-height: 1.7;
-}
-.story-note-label {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-right: 8px;
-}
-
-/* ---------- Responsive: bot-shots-grid-3 collapses on narrow screens ---------- */
-@media (max-width: 880px) {
+  .bot-grid { grid-template-columns: 1fr; }
   .bot-shots-grid-3 { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 540px) {
-  .bot-shots-grid-3 { grid-template-columns: 1fr; }
+  .contact-cards { grid-template-columns: 1fr; }
+
+  .leadership-list li { grid-template-columns: 1fr; gap: 4px; }
+  .lead-when { font-size: 12px; }
+
+  .cert-timeline::before { left: 70px; }
+  .cert-timeline li { grid-template-columns: 70px 1fr; gap: 18px; }
+  .cert-timeline li::before { left: 66px; }
 }
 
-/* ---------- "Methods that travel" callout on About ---------- */
-.about-travels {
-  margin: 22px 0 0;
-  padding: 16px 20px;
-  background: var(--bg-3);
-  border-left: 2px solid var(--accent);
-  border-radius: 6px;
+/* ---------- Tier 2: Phone (<= 768px) ----------
+   Nav collapses to hamburger. Everything else goes single-column.
+*/
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-cta { display: none; }
+  body.nav-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--line);
+    padding: 16px var(--pad-x);
+    gap: 4px;
+  }
+  body.nav-open .nav-links a { padding: 12px 14px; font-size: 15px; }
+
+  .view { padding: 50px 0 70px; }
+
+  .hero-title { font-size: clamp(28px, 7.5vw, 42px); }
+  .hero-now { font-size: 12px; padding: 8px 14px; }
+  .hero-sub { font-size: 16px; }
+  .hero-detail { margin-top: 16px; }
+
+  .stats-grid { grid-template-columns: 1fr; gap: 20px; }
+  .program { padding: 24px 22px; }
+  .program-scale { grid-template-columns: 1fr; gap: 12px; padding: 16px 18px; }
+  .story { padding: 24px 22px; }
+  .bot-shots-grid-3 { grid-template-columns: 1fr; }
+
+  .footer-inner { flex-direction: column; }
 }
-.about-travels p {
-  margin: 0;
-  color: var(--text-dim);
-  font-size: 14px;
-  line-height: 1.7;
-}
-.about-travels-label {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-right: 8px;
+
+/* ---------- Tier 3: Small phone (<= 480px) ----------
+   Tighten padding and reduce non-essential margins for cramped screens.
+*/
+@media (max-width: 480px) {
+  .nav { padding: 12px var(--pad-x); gap: 12px; }
+  .brand-name { font-size: 14px; }
+
+  .hero-title { font-size: clamp(26px, 8vw, 36px); }
+  .hero-eyebrow { font-size: 14px; }
+  .hero-sub { font-size: 15px; line-height: 1.65; }
+
+  .section-title { font-size: clamp(28px, 8.5vw, 38px); }
+  .section-lede { font-size: 15px; }
+
+  .stat-num { font-size: clamp(32px, 9vw, 42px); }
+  .stat-label { font-size: 14px; }
+  .stat-label span { font-size: 12px; }
+
+  .program { padding: 20px 18px; }
+  .story { padding: 20px 18px; }
+  .pillar { padding: 24px 22px; }
+
+  .photo-frame { max-width: 240px; }
 }
