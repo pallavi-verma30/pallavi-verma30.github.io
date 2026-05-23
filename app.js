@@ -6,36 +6,46 @@
 (function () {
   'use strict';
 
-  // ----- Router -----------------------------------------------
+  // ----- Mobile nav toggle (FIRST, so it works even if anything else fails) -----
 
-  const views = document.querySelectorAll('[data-view]');
-  const navLinks = document.querySelectorAll('.nav-links a[data-route]');
+  function setupMobileNav() {
+    const navToggle = document.getElementById('navToggle');
+    const navLinksEl = document.querySelector('.nav-links');
+    if (!navToggle) return;
 
-  function currentRoute() {
-    const hash = window.location.hash || '#/';
-    return hash.replace(/^#/, '') || '/';
+    // Toggle on hamburger click
+    navToggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      document.body.classList.toggle('nav-open');
+    });
+
+    // Close menu when any nav link is tapped
+    document.querySelectorAll('.nav-links a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        document.body.classList.remove('nav-open');
+      });
+    });
+
+    // Close menu when tapping outside it
+    document.addEventListener('click', function (e) {
+      if (!document.body.classList.contains('nav-open')) return;
+      if (navToggle.contains(e.target)) return;
+      if (navLinksEl && navLinksEl.contains(e.target)) return;
+      document.body.classList.remove('nav-open');
+    });
   }
 
-  function showRoute(route) {
-    let found = false;
-    views.forEach(v => {
-      const match = v.dataset.view === route;
-      v.classList.toggle('is-active', match);
-      if (match) found = true;
-    });
-    // Fallback to home if route doesn't exist
-    if (!found) {
-      document.querySelector('[data-view="/"]').classList.add('is-active');
+  // ----- Router -----------------------------------------------
+
+  function setupRouter() {
+    const views = document.querySelectorAll('[data-view]');
+    const navLinks = document.querySelectorAll('.nav-links a[data-route]');
+
+    function currentRoute() {
+      const hash = window.location.hash || '#/';
+      return hash.replace(/^#/, '') || '/';
     }
-    // Update nav active state
-    navLinks.forEach(a => {
-      a.classList.toggle('is-active', a.dataset.route === route);
-    });
-    // Close mobile nav
-    document.body.classList.remove('nav-open');
-    // Scroll to top on route change
-    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
-    // Update page title
+
     const titles = {
       '/': 'Pallavi Verma — Digital Health Program Delivery',
       '/about': 'About — Pallavi Verma',
@@ -45,41 +55,49 @@
       '/ai-bot': 'AI Job Bot — Pallavi Verma',
       '/education': 'Education — Pallavi Verma'
     };
-    document.title = titles[route] || titles['/'];
-    // Run reveal observer on freshly visible content
-    setupReveal();
+
+    function showRoute(route) {
+      let found = false;
+      views.forEach(function (v) {
+        const match = v.dataset.view === route;
+        v.classList.toggle('is-active', match);
+        if (match) found = true;
+      });
+      if (!found) {
+        const home = document.querySelector('[data-view="/"]');
+        if (home) home.classList.add('is-active');
+      }
+      navLinks.forEach(function (a) {
+        a.classList.toggle('is-active', a.dataset.route === route);
+      });
+      document.body.classList.remove('nav-open');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      document.title = titles[route] || titles['/'];
+      setupReveal();
+    }
+
+    function route() { showRoute(currentRoute()); }
+
+    window.addEventListener('hashchange', route);
+    route();
   }
-
-  function route() { showRoute(currentRoute()); }
-
-  window.addEventListener('hashchange', route);
-  window.addEventListener('DOMContentLoaded', route);
 
   // ----- Experience tabs --------------------------------------
 
-  const expTabs = document.querySelectorAll('.exp-tab');
-  const expPanels = document.querySelectorAll('.exp-panel');
-
-  expTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const key = tab.dataset.exp;
-      expTabs.forEach(t => t.classList.toggle('is-active', t === tab));
-      expPanels.forEach(p => p.classList.toggle('is-active', p.dataset.exp === key));
-    });
-  });
-
-  // ----- Mobile nav toggle ------------------------------------
-
-  const navToggle = document.getElementById('navToggle');
-  if (navToggle) {
-    navToggle.addEventListener('click', () => {
-      document.body.classList.toggle('nav-open');
+  function setupExpTabs() {
+    const expTabs = document.querySelectorAll('.exp-tab');
+    const expPanels = document.querySelectorAll('.exp-panel');
+    expTabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        const key = tab.dataset.exp;
+        expTabs.forEach(function (t) { t.classList.toggle('is-active', t === tab); });
+        expPanels.forEach(function (p) { p.classList.toggle('is-active', p.dataset.exp === key); });
+      });
     });
   }
 
   // ----- Reveal-on-scroll -------------------------------------
 
-  // Add .reveal to a curated set of elements once per route
   const revealSelectors = [
     '.hero-text > *',
     '.hero-photo',
@@ -90,6 +108,7 @@
     '.leadership-list li',
     '.exp-panel.is-active',
     '.program',
+    '.story',
     '.bot-story',
     '.bot-card',
     '.bot-architecture',
@@ -100,28 +119,38 @@
     '.contact-card'
   ];
 
-  let observer;
+  let observer = null;
   function setupReveal() {
     if (observer) observer.disconnect();
     const targets = document.querySelectorAll(
       '.view.is-active ' + revealSelectors.join(', .view.is-active ')
     );
-    targets.forEach((el, i) => {
+    targets.forEach(function (el, i) {
       el.classList.add('reveal');
       el.style.transitionDelay = Math.min(i * 40, 600) + 'ms';
     });
-    observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
+    observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
         if (e.isIntersecting) {
           e.target.classList.add('is-in');
           observer.unobserve(e.target);
         }
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    targets.forEach(t => observer.observe(t));
+    targets.forEach(function (t) { observer.observe(t); });
   }
 
-  // ----- Year footer (optional future use) --------------------
-  // (kept inline in HTML for now)
+  // ----- Boot -------------------------------------------------
 
+  function init() {
+    try { setupMobileNav(); } catch (err) { console.error('Mobile nav setup failed:', err); }
+    try { setupRouter(); }    catch (err) { console.error('Router setup failed:', err); }
+    try { setupExpTabs(); }   catch (err) { console.error('Exp tabs setup failed:', err); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
