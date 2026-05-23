@@ -1210,7 +1210,8 @@ main {
   flex-wrap: wrap;
   gap: 12px;
 }
-.footer a { color: var(--te
+.footer a { color: var(--text-soft); }
+.footer a:hover { color: var(--accent); }
 
 /* ---------- Degree card (Education page) ---------- */
 .degree-card {
@@ -1324,7 +1325,8 @@ main {
   background: var(--text-soft);
   opacity: 0.4;
 }
-.story-internal:hover::before { background: var(--accent); opacity: 0
+.story-internal:hover::before { background: var(--accent); opacity: 0.9; }
+
 /* ============================================================
    Responsive — three-tier system: 1024 / 768 / 480
    ============================================================ */
