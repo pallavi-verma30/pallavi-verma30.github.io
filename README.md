@@ -107,3 +107,5 @@ Common edits:
 ## Browser support
 
 Modern evergreen browsers (Chrome, Edge, Firefox, Safari). Uses CSS custom properties, `aspect-ratio`, `backdrop-filter`, CSS Grid `grid-template-areas` — all widely supported.
+
+ 
