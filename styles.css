@@ -850,6 +850,42 @@ main {
 
 /* ---------- AI Bot ---------- */
 
+.bot-source {
+  margin: -12px 0 32px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.bot-source a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  background: transparent;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background var(--t), transform var(--t);
+}
+.bot-source a:hover {
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+.bot-source-icon {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: -0.05em;
+  opacity: 0.85;
+}
+.bot-source-arrow {
+  transition: transform var(--t);
+}
+.bot-source a:hover .bot-source-arrow {
+  transform: translateX(3px);
+}
+
 .bot-story {
   background: var(--bg-2);
   border-left: 3px solid var(--accent);
