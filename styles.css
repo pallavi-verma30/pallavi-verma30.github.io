@@ -117,7 +117,7 @@ code {
 }
 
 .nav {
-  max-width: var(--max);
+  max-width: 1280px;
   margin: 0 auto;
   padding: 16px var(--pad-x);
   display: flex;
@@ -185,6 +185,7 @@ code {
   border-radius: 6px;
   font-weight: 500;
   letter-spacing: 0.01em;
+  white-space: nowrap;
   transition: color var(--t), background var(--t);
 }
 .nav-links a:hover { color: var(--accent); background: var(--accent-soft); }

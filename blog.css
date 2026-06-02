@@ -148,9 +148,19 @@
 
 /* ---------- Markdown content typography ---------- */
 
-.post-content { font-size: 1.05rem; line-height: 1.75; }
+.post-content {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
 
 .post-content > * + * { margin-top: 1.25em; }
+
+/* Headings read better left-aligned, even when the body is justified */
+.post-content h2,
+.post-content h3 { text-align: left; }
 
 .post-content h2 {
   font-family: var(--font-display);
