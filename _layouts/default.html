@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{ page.description | default: site.description }}" />
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="/assets/favicon-192.png" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/blog.css" />
+</head>
+<body class="blog-body">
+  <!-- Background pattern (same as the portfolio) -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- Nav -->
+  <header class="nav-wrap">
+    <nav class="nav">
+      <a href="/#/" class="brand">
+        <span class="brand-mark">
+          <span class="brand-mark-text">pv</span>
+          <span class="brand-mark-dot" aria-hidden="true"></span>
+        </span>
+        <span class="brand-name">Pallavi Verma</span>
+      </a>
+      <input type="checkbox" id="nav-check" class="nav-check" aria-label="Toggle menu" />
+      <label for="nav-check" class="nav-toggle" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </label>
+      <ul class="nav-links">
+        <li><a href="/#/">Home</a></li>
+        <li><a href="/#/about">About</a></li>
+        <li><a href="/#/experience">Experience</a></li>
+        <li><a href="/#/programs">Programs</a></li>
+        <li><a href="/#/ai-bot">AI Job Bot</a></li>
+        <li><a href="/blog/" class="is-active">Blog</a></li>
+      </ul>
+      <a href="/assets/Pallavi_Verma_Resume.pdf" class="nav-cta" download>Resume</a>
+    </nav>
+  </header>
+
+  <main class="blog-main">
+    {{ content }}
+  </main>
+
+  <footer class="blog-footer">
+    <p>Built by Pallavi Verma. <a href="/#/">Portfolio &rarr;</a></p>
+  </footer>
+</body>
+</html>

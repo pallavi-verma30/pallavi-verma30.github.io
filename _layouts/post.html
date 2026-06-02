@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<article class="post">
+  <a href="/blog/" class="post-back">&larr; All posts</a>
+
+  <header class="post-head">
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      {% if page.tags and page.tags.size > 0 %} &middot; {{ page.tags | join: " &middot; " }}{% endif %}
+    </p>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {% if page.subtitle %}<p class="post-subtitle">{{ page.subtitle }}</p>{% endif %}
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <footer class="post-foot">
+    <p class="post-contact">
+      Have a thought on this? I'd love to hear it. Find me on
+      <a href="https://www.linkedin.com/in/pallavi-verma30/" target="_blank" rel="noopener">LinkedIn</a>
+      or <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=vermapallavi01947@gmail.com" target="_blank" rel="noopener">send me an email</a>.
+    </p>
+    <a href="/blog/" class="post-back">&larr; All posts</a>
+  </footer>
+</article>

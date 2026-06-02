@@ -1,0 +1,28 @@
+---
+layout: default
+title: "Blog — Pallavi Verma"
+description: "Notes on digital health program delivery, AI engineering, and building in the open."
+---
+<section class="blog-index">
+  <p class="section-eyebrow">Writing</p>
+  <h1 class="blog-index-title">The <em>blog</em>.</h1>
+  <p class="blog-index-sub">Notes on digital health program delivery, AI engineering, and building things in the open.</p>
+
+  <ul class="post-list">
+    {% for post in site.posts %}
+    <li class="post-list-item">
+      <a href="{{ post.url }}">
+        <span class="post-list-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <span class="post-list-body">
+          <span class="post-list-title">{{ post.title }}</span>
+          {% if post.subtitle %}<span class="post-list-excerpt">{{ post.subtitle }}</span>{% endif %}
+        </span>
+        <span class="post-list-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </li>
+    {% endfor %}
+    {% if site.posts.size == 0 %}
+    <li class="post-list-empty">No posts yet &mdash; check back soon.</li>
+    {% endif %}
+  </ul>
+</section>

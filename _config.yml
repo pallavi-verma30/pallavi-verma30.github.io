@@ -1,0 +1,19 @@
+# ============================================================
+# Jekyll config for the blog.
+# Your hand-coded portfolio (index.html, app.js, styles.css) has
+# no "front matter", so Jekyll copies those files through untouched.
+# Jekyll only generates the blog from _posts/ + _layouts/.
+# ============================================================
+
+title: Pallavi Verma
+description: Notes on digital health program delivery, AI engineering, and building in the open.
+
+# Clean blog URLs, e.g. /blog/welcome/
+permalink: /blog/:title/
+
+# Show newest posts first on the listing page (default, but explicit here).
+# Date format helpers are used directly in the layouts.
+
+# Don't let Jekyll try to process these as content — they're the SPA + docs.
+exclude:
+  - README.md
