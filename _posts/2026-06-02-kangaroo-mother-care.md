@@ -15,23 +15,21 @@ registered, tracked, and followed home. I knew the workflow by heart. I had
 never stood in the same room as the thing it was for.
 
 The work was the digital backbone of a Kangaroo Mother Care program: the system
-frontline workers used to find these newborns, register them, guide every
-visit, and track each baby through the fragile first weeks of life, along with
-the in-app training that taught the workers the method before they ever began.
-I built it for several partners. Some were home based, where frontline workers
-went door to door to deliver the program. Others were hospital based, where the
-nurses themselves were the workers. To me, across all of them, it was screens
-and workflows and logic.
+frontline workers used to find preterm or low-birth-weight newborns, register
+them, guide every visit, and track each baby through the fragile first weeks of
+life, along with the in-app training that taught the workers the method before
+they ever began. I built it for several partners. Some were home based, where
+frontline workers went door to door. Others were hospital based, where the
+nurses themselves were the workers.
 
 Then I visited one of the hospital based sites, in a small rural town in India.
 
 The first place they took me was the NICU. I am not sure what I had imagined,
-but it was not this. A clean, sealed room, the kind that does not allow
-visitors, and inside it, babies. Only babies. Hours old, some so small they did
-not look finished yet, each one alone, kept alive by tubes, fighting for the
-most ordinary thing in the world: the next breath. There were more of them than
-felt possible. No mother was holding them. They were far too fragile for even
-that. They were doing the fighting entirely on their own.
+but it was not this. A clean, sealed room. No parents, no visitors, just
+machines and babies. Hours old, some so small they did not look finished yet,
+each one alone, kept alive by tubes, fighting for the most ordinary thing in
+the world: the next breath. No mother was holding them. They were far too
+fragile for even that. They were doing the fighting entirely on their own.
 
 It was in the other wards, the ones with the more stable babies, that I finally
 saw the program I had built actually happening. There were the women. Mothers,
@@ -51,10 +49,8 @@ its own grammar, and every woman in that ward was fluent in it.
 ---
 
 Somewhere between those two rooms, the abstraction I had lived inside for a year
-fell apart. Every SVN record I had designed was one of those babies. Every
-follow-up reminder was a nurse or a frontline worker reaching one of them in
-time. Every clean field of data was, somewhere upstream, a mother being told
-you can do this, and here is how.
+fell apart. Every record I had designed was one of these babies. Every
+follow-up reminder was a worker reaching one of them in time.
 
 I had built the program first on CommCare, and later helped carry the whole
 thing onto Connect, Dimagi's newer platform, the one that walks a worker through
@@ -63,23 +59,20 @@ is verified as delivered. On my screen that was architecture. In that hospital
 it was the difference between a baby who got followed home and one who slipped
 through.
 
+The system I helped build has since tracked more than 5,000 of these newborns
+across India, Kenya, Nigeria, and Uganda, for around $36 a baby. But that is
+not the number I remember. I remember the room.
+
 Of everything I have built, this is the work I am proudest of. Not because it
 was the most technically complex thing I have done. It was not. Because it is
 the work where I could stand in a building and watch software turn into
 survival. We rarely get to see what we make actually land. I got to watch this
 one land.
 
-The system I helped build has since tracked more than 5,000 of these newborns
-across India, Kenya, Nigeria, and Uganda, for around $36 a baby. But that is
-not the number I remember. I remember the room.
-
-It changed how I build. I understood, finally, that you are always building for
-someone you will never meet, and that this is not a reason for distance but the
-reason for care. A confusing form is not a small annoyance out in the field. It
-is a tired nurse getting something wrong beside an incubator, or a frontline
-worker hesitating at a doorstep. The unglamorous parts, the validation rules,
-the training a worker has to pass before they are trusted with a newborn, are
-not overhead. They are the program.
+It changed how I build. You are always building for someone you will never meet,
+and that is not a reason for distance but the reason for care. A confusing form
+is not a small annoyance out in the field; it is a tired nurse getting something
+wrong beside an incubator.
 
 ---
 
