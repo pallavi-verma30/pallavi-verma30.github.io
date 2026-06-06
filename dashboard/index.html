@@ -1,122 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Immunization coverage and child survival in Nigeria — a data analysis built from open WHO/UNICEF and UN IGME data using SQL. By Pallavi Verma." />
+<html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Sample data analysis: immunization coverage and child survival in Nigeria, built from open WHO/UNICEF and UN IGME data with SQL." />
 <title>Immunization coverage &amp; child survival in Nigeria — Pallavi Verma</title>
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/styles.css" />
-<link rel="stylesheet" href="/dashboard.css" />
-</head>
-<body class="blog-body">
-<div class="bg-grid" aria-hidden="true"></div>
-<div class="bg-glow" aria-hidden="true"></div>
-
+<link rel="stylesheet" href="/styles.css" /><link rel="stylesheet" href="/dashboard.css" />
+</head><body class="blog-body">
+<div class="bg-grid" aria-hidden="true"></div><div class="bg-glow" aria-hidden="true"></div>
   <header class="nav-wrap"><nav class="nav">
     <a href="/#/" class="brand"><span class="brand-mark"><span class="brand-mark-text">pv</span><span class="brand-mark-dot" aria-hidden="true"></span></span><span class="brand-name">Pallavi Verma</span></a>
     <input type="checkbox" id="nav-check" class="nav-check" aria-label="Toggle menu" />
     <label for="nav-check" class="nav-toggle" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="/#/">Home</a></li>
-      <li><a href="/#/about">About</a></li>
-      <li><a href="/#/experience">Experience</a></li>
-      <li><a href="/#/ai-bot">AI Job Bot</a></li>
-      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/#/">Home</a></li><li><a href="/#/about">About</a></li><li><a href="/#/experience">Experience</a></li>
+      <li><a href="/#/ai-bot">AI Job Bot</a></li><li><a href="/blog/">Blog</a></li>
       <li><a href="/dashboard/" class="is-active">Dashboard</a></li>
     </ul>
     <a href="/assets/Pallavi_Verma_Resume.pdf" class="nav-cta" download>Resume</a>
   </nav></header>
-
 <main class="dash-main">
-  <p class="dash-eyebrow">Data analysis &middot; SQL &middot; open data</p>
+  <p class="dash-eyebrow">Sample analysis &middot; open data &middot; SQL</p>
   <h1 class="dash-title">Immunization coverage &amp; child survival in Nigeria</h1>
-  <p class="dash-sub">Three decades of vaccination coverage set against newborn survival, plus the wide gaps between states in 2018. Built from open WHO/UNICEF and UN&nbsp;IGME data, cleaned and computed in SQL.</p>
-  <p class="dash-source">Sources: WHO/UNICEF national immunization coverage estimates and subnational coverage data (CC&nbsp;BY&nbsp;3.0&nbsp;IGO); UN&nbsp;IGME child mortality estimates. Reported/estimated official figures; subnational administrative data has known quality limits (see notes).</p>
+  <p class="dash-sub">Four decades of national vaccination coverage set against newborn survival, and a 2018 look at which states are home to the most unreached children. The figures were rebuilt from raw WHO/UNICEF and UN&nbsp;IGME files, cleaned and computed in SQL.</p>
+  <p class="dash-source">Data: WHO/UNICEF national immunization coverage estimates and subnational coverage data (CC&nbsp;BY&nbsp;3.0&nbsp;IGO); UN&nbsp;IGME child mortality estimates. National figures are modelled estimates; the 2018 subnational figures are administrative reports with known quality limits, handled below.</p>
 
   <div class="kpi-grid">
-    <div class="kpi"><div class="kpi-num accent">67%</div><div class="kpi-label">DTP3 coverage, 2024 (target 90%+)</div></div>
-    <div class="kpi"><div class="kpi-num accent">57%</div><div class="kpi-label">Measles (MCV1) coverage, 2024</div></div>
-    <div class="kpi"><div class="kpi-num">&minus;21.2%</div><div class="kpi-label">Neonatal mortality since 1990 (49.5&rarr;39.0 per 1,000)</div></div>
-    <div class="kpi"><div class="kpi-num">38 pts</div><div class="kpi-label">Gap between best &amp; worst state, MCV1 2018</div></div>
+    <div class="kpi"><div class="kpi-num accent">67%</div><div class="kpi-label">DTP3 coverage in 2024, against a 90%+ goal</div></div>
+    <div class="kpi"><div class="kpi-num accent">57%</div><div class="kpi-label">Measles (MCV1) coverage in 2024</div></div>
+    <div class="kpi"><div class="kpi-num">&minus;21.2%</div><div class="kpi-label">Neonatal mortality since 1990 (49.5 to 39.0 per 1,000 births)</div></div>
+    <div class="kpi"><div class="kpi-num">1.45M</div><div class="kpi-label">Children who missed the measles dose, 2018 (districts with usable data)</div></div>
   </div>
 
   <div class="chart-block">
-    <div class="chart-head"><h2 class="chart-title">Coverage up, newborn deaths down</h2></div>
-    <p class="chart-note">As vaccination coverage climbed (with a real dip around 2000), neonatal mortality fell. This shows association, not proof of causation — many factors drive child survival.</p>
+    <div class="chart-head"><h2 class="chart-title">Coverage rose in fits and starts; newborn deaths fell more slowly</h2></div>
+    <p class="chart-note">Vaccination coverage roughly doubled since the 1980s but stalled and even reversed around 2000 before recovering, and it still sits short of the 90% mark. Neonatal mortality dropped about a fifth over the same period. The two move together; this is association, not proof that one caused the other.</p>
     <div class="chart-frame">
       <div class="legend">
         <span><i style="border-color:#22d3ee"></i>DTP3 coverage</span>
-        <span><i style="border-color:#ffb86b;border-top-style:dashed"></i>Measles (MCV1) coverage</span>
+        <span><i style="border-color:#ffb86b;border-top-style:dashed"></i>Measles coverage</span>
         <span><i style="border-color:#ff7a7a;border-top-style:dotted"></i>Neonatal mortality (right axis)</span>
       </div>
-      <div class="chart-canvas-wrap" style="height:340px"><canvas id="trend" role="img" aria-label="Line chart, Nigeria 1985 to 2024: DTP3 and measles coverage rising to 67 and 57 percent, neonatal mortality falling from about 49 to 39 per 1000."></canvas></div>
+      <div class="chart-canvas-wrap" style="height:340px"><canvas id="trend" role="img" aria-label="Nigeria 1984 to 2024: coverage rising with a dip around 2000; neonatal mortality falling."></canvas></div>
     </div>
   </div>
 
   <div class="callout">
-    <div class="callout-num">225</div>
-    <div class="callout-text">of 774 district records for measles reported <b>more doses given than eligible children</b> — impossible. <span>These were flagged and excluded before any state figures were computed. Catching errors like this is the difference between a chart and an analysis.</span></div>
+    <div class="callout-num">29%</div>
+    <div class="callout-text">of the 2018 district records for measles (225 of 774) logged more doses given than there were eligible children, which cannot be true. <span>They were removed before any state figure was calculated, so the state map and ranking below rest only on records that pass a basic sanity check.</span></div>
   </div>
 
   <div class="chart-block">
-    <div class="chart-head"><h2 class="chart-title">A national average hides huge state gaps</h2></div>
-    <p class="chart-note">Measles (MCV1) coverage by state in 2018, rebuilt by summing doses and eligible population up from 549 valid districts. Bars below the 90% target are amber.</p>
+    <div class="chart-head"><h2 class="chart-title">Measles coverage is lowest across the north-west and south-south</h2></div>
+    <p class="chart-note">2018 measles coverage by state, rebuilt from district reports. The cold spots cluster, they are not scattered randomly, which is what makes geographic targeting possible.</p>
+    <div class="chart-frame">
+      <div class="legend" id="maplegend"></div>
+      <div id="map" role="img" aria-label="Choropleth map of Nigeria showing 2018 measles coverage by state, lowest in the north-west and parts of the south."></div>
+    </div>
+  </div>
+
+  <div class="chart-block">
+    <div class="chart-head"><h2 class="chart-title">A coverage rate doesn't tell you where the missed children are</h2></div>
+    <p class="chart-note">The ten states with the most children missing the measles dose in 2018. Bar length is the number of children; colour is the state's own coverage rate. Populous states like Kano and Lagos sit near the national average yet carry the largest absolute gaps, which is where outreach money goes furthest.</p>
     <div class="chart-frame">
       <div class="legend">
-        <span><b style="background:#22d3ee"></b>At or above 90% target</span>
-        <span><b style="background:#ffb86b"></b>Below target</span>
+        <span><b style="background:#22d3ee"></b>80%+ coverage</span>
+        <span><b style="background:#ffb86b"></b>65&ndash;80%</span>
+        <span><b style="background:#ff7a7a"></b>below 65%</span>
       </div>
-      <div class="chart-canvas-wrap" style="height:884px"><canvas id="states" role="img" aria-label="Bar chart of 2018 measles coverage by Nigerian state, ranging from about 54 percent to 92 percent."></canvas></div>
+      <div class="chart-canvas-wrap" style="height:420px"><canvas id="burden" role="img" aria-label="Top ten Nigerian states by children missing the measles dose in 2018; Kano and Lagos highest."></canvas></div>
     </div>
   </div>
 
   <div class="method">
-    <h2>How this was built &amp; what it can't tell you</h2>
-    <p>The national series come from WHO/UNICEF estimates (DTP3, measles) and UN&nbsp;IGME (neonatal mortality). The 2018 state figures were rebuilt from district-level reports: I loaded the raw files into <code>DuckDB</code>, cleaned out impossible and missing values, then aggregated coverage by summing doses and eligible population per state (a population-weighted rate, not a simple average of districts).</p>
-    <p>Limitations, stated plainly: the national trend is country-level while the state view is a single year (2018), so they sit at different scales. Coverage versus mortality is an association, not causation. And the administrative data is noisy — beyond the 225 impossible measles records, the polio figures were too inconsistent (third-dose records exceeding first-dose in most states) to compute a reliable dropout rate, so that indicator was left out rather than shown misleadingly.</p>
+    <h2>How the numbers were built, and what they can't show</h2>
+    <p>The national series come from WHO/UNICEF coverage estimates and UN&nbsp;IGME mortality estimates. The 2018 state figures were rebuilt from district-level reports: the raw files were loaded into <code>DuckDB</code>, screened for impossible and missing values, and then coverage was aggregated by summing doses and eligible population per state (a population-weighted rate, not a plain average across districts of differing size). The full set of SQL queries, and the records that were thrown out, are in the <a href="/dashboard/methodology/">methodology writeup</a>.</p>
+    <p>The limits are worth being clear about. The national trend is country-wide while the state view is a single year, so the two are different lenses, not one continuous picture. Coverage moving with mortality is an association; many things drive child survival. And the administrative data is rough: beyond the 29% of measles records that were impossible, the polio figures were inconsistent enough (third-dose counts exceeding first-dose in most states) that a drop-off indicator could not be calculated honestly, so it was left out rather than shown.</p>
   </div>
 </main>
-
-<footer class="dash-footer"><p>Built by Pallavi Verma using open data and SQL. <a href="/#/">Portfolio &rarr;</a> &middot; <a href="/blog/">Blog &rarr;</a></p></footer>
+<footer class="dash-footer"><p>A sample analysis by Pallavi Verma, built from open data with SQL. <a href="/#/">Portfolio &rarr;</a> &middot; <a href="/blog/">Blog &rarr;</a></p></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
 
-const YEARS=[1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
-const DTP3=[9, 16, 22, 29, 36, 47, 56, 39, 43, 29, 44, 34, 26, 21, 21, 31, 29, 27, 25, 29, 33, 36, 40, 42, 53, 63, 56, 53, 36, 39, 43, 42, 53, 55, 61, 66, 62, 61, 59, 67, 67];
-const MCV1=[9, 17, 28, 36, 46, 59, 54, 57, 43, 40, 41, 44, 38, 38, 38, 35, 33, 32, 30, 34, 37, 41, 44, 41, 53, 64, 56, 53, 41, 42, 42, 42, 48, 54, 56, 58, 60, 56, 51, 54, 57];
-const NMR=[50.0, 49.6, 49.3, 49.3, 49.2, 49.4, 49.5, 49.6, 49.7, 49.8, 49.8, 49.7, 49.4, 49.0, 48.3, 47.3, 46.1, 44.8, 43.4, 42.1, 40.9, 40.0, 39.3, 38.8, 38.4, 38.1, 37.9, 37.7, 37.6, 37.7, 37.8, 38.0, 38.2, 38.5, 38.7, 39.0, 39.2, 39.3, 39.3, 39.2, 39.0];
-const STATES=["Bayelsa", "Borno", "Sokoto", "Edo", "Bauchi", "Ondo", "Abia", "Kano", "Osun", "Katsina", "Oyo", "Benue", "FCT, Abuja", "Lagos", "Plateau", "Ekiti", "Gombe", "Yobe", "Kwara", "Kebbi", "Enugu", "Kaduna", "Ebonyi", "Delta", "Zamfara", "Jigawa", "Akwa Ibom", "Rivers", "Imo", "Nasarawa", "Cross River", "Adamawa", "Ogun", "Taraba", "Kogi", "Anambra", "Niger"];
-const SCOV=[54.3, 55.8, 63.0, 65.3, 67.6, 67.6, 68.5, 70.5, 70.7, 72.0, 72.5, 72.5, 73.5, 73.6, 73.7, 74.0, 74.2, 74.6, 74.8, 75.1, 75.5, 76.0, 76.0, 76.5, 76.9, 78.8, 78.9, 81.2, 82.7, 83.6, 84.6, 84.7, 86.1, 86.2, 86.4, 88.3, 92.0];
-const TARGET=90;
+const YEARS=[1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];const DTP3=[9, 16, 22, 29, 36, 47, 56, 39, 43, 29, 44, 34, 26, 21, 21, 31, 29, 27, 25, 29, 33, 36, 40, 42, 53, 63, 56, 53, 36, 39, 43, 42, 53, 55, 61, 66, 62, 61, 59, 67, 67];const MCV1=[9, 17, 28, 36, 46, 59, 54, 57, 43, 40, 41, 44, 38, 38, 38, 35, 33, 32, 30, 34, 37, 41, 44, 41, 53, 64, 56, 53, 41, 42, 42, 42, 48, 54, 56, 58, 60, 56, 51, 54, 57];const NMR=[50.0, 49.6, 49.3, 49.3, 49.2, 49.4, 49.5, 49.6, 49.7, 49.8, 49.8, 49.7, 49.4, 49.0, 48.3, 47.3, 46.1, 44.8, 43.4, 42.1, 40.9, 40.0, 39.3, 38.8, 38.4, 38.1, 37.9, 37.7, 37.6, 37.7, 37.8, 38.0, 38.2, 38.5, 38.7, 39.0, 39.2, 39.3, 39.3, 39.2, 39.0];
+const BST=["Kano", "Lagos", "Bauchi", "Oyo", "Sokoto", "Katsina", "Edo", "Osun", "Borno", "Benue"];const BMISS=[151063, 120721, 82163, 78538, 72219, 57461, 53954, 48513, 47780, 44641];const BCOV=[70.5, 73.6, 67.6, 72.5, 63.0, 72.0, 65.3, 70.7, 55.8, 72.5];
+const COVMAP={"Kano": 70.5, "Lagos": 73.6, "Bauchi": 67.6, "Oyo": 72.5, "Sokoto": 63.0, "Katsina": 72.0, "Edo": 65.3, "Osun": 70.7, "Borno": 55.8, "Benue": 72.5, "Ondo": 67.6, "Abia": 68.5, "Enugu": 75.5, "Bayelsa": 54.3, "Federal Capital Territory": 73.5, "Akwa Ibom": 78.9, "Plateau": 73.7, "Jigawa": 78.8, "Ekiti": 74.0, "Zamfara": 76.9, "Kebbi": 75.1, "Delta": 76.5, "Kaduna": 76.0, "Imo": 82.7, "Yobe": 74.6, "Rivers": 81.2, "Kwara": 74.8, "Gombe": 74.2, "Ebonyi": 76.0, "Cross River": 84.6, "Adamawa": 84.7, "Kogi": 86.4, "Anambra": 88.3, "Ogun": 86.1, "Taraba": 86.2, "Niger": 92.0, "Nassarawa": 83.6};
 
-const TICK='#8a98b2', GRID='rgba(29,41,66,0.7)';
-new Chart(document.getElementById('trend'),{
-  data:{labels:YEARS,datasets:[
-    {label:'DTP3',data:DTP3,borderColor:'#22d3ee',backgroundColor:'#22d3ee',yAxisID:'y',tension:.3,pointRadius:0,borderWidth:2},
-    {label:'MCV1',data:MCV1,borderColor:'#ffb86b',yAxisID:'y',tension:.3,pointRadius:0,borderWidth:2,borderDash:[6,4]},
-    {label:'Neonatal mortality',data:NMR,borderColor:'#ff7a7a',yAxisID:'y1',tension:.3,pointRadius:0,borderWidth:2,borderDash:[2,2]}
-  ]},type:'line',
-  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-    plugins:{legend:{display:false}},
-    scales:{
-      y:{position:'left',min:0,max:100,title:{display:true,text:'Coverage %',color:TICK},ticks:{color:TICK,callback:v=>v+'%'},grid:{color:GRID}},
-      y1:{position:'right',min:0,title:{display:true,text:'Neonatal deaths / 1,000',color:TICK},ticks:{color:TICK},grid:{drawOnChartArea:false}},
-      x:{ticks:{color:TICK,maxTicksLimit:10},grid:{display:false}}
-    }}
+const TICK='#8a98b2',GRID='rgba(29,41,66,0.7)';
+function barColor(c){return c>=80?'#22d3ee':(c>=65?'#ffb86b':'#ff7a7a');}
+new Chart(document.getElementById('trend'),{type:'line',
+ data:{labels:YEARS,datasets:[
+  {label:'DTP3',data:DTP3,borderColor:'#22d3ee',yAxisID:'y',tension:.3,pointRadius:0,borderWidth:2},
+  {label:'MCV1',data:MCV1,borderColor:'#ffb86b',yAxisID:'y',tension:.3,pointRadius:0,borderWidth:2,borderDash:[6,4]},
+  {label:'NMR',data:NMR,borderColor:'#ff7a7a',yAxisID:'y1',tension:.3,pointRadius:0,borderWidth:2,borderDash:[2,2]}]},
+ options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+  plugins:{legend:{display:false}},
+  scales:{y:{position:'left',min:0,max:100,title:{display:true,text:'Coverage %',color:TICK},ticks:{color:TICK,callback:v=>v+'%'},grid:{color:GRID}},
+   y1:{position:'right',min:0,title:{display:true,text:'Neonatal deaths / 1,000',color:TICK},ticks:{color:TICK},grid:{drawOnChartArea:false}},
+   x:{ticks:{color:TICK,maxTicksLimit:10},grid:{display:false}}}}
 });
-new Chart(document.getElementById('states'),{
-  data:{labels:STATES,datasets:[{label:'MCV1 %',data:SCOV,borderRadius:3,
-    backgroundColor:SCOV.map(v=>v>=TARGET?'#22d3ee':'#ffb86b')}]},type:'bar',
-  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false}},
-    scales:{x:{min:0,max:100,ticks:{color:TICK,callback:v=>v+'%'},grid:{color:GRID}},
-            y:{ticks:{color:TICK,font:{size:10}},grid:{display:false}}}}
+new Chart(document.getElementById('burden'),{type:'bar',
+ data:{labels:BST,datasets:[{data:BMISS,borderRadius:3,backgroundColor:BCOV.map(barColor)}]},
+ options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>c.raw.toLocaleString()+' children missed ('+BCOV[c.dataIndex]+'% coverage)'}}},
+  scales:{x:{min:0,title:{display:true,text:'Children who missed the measles dose',color:TICK},ticks:{color:TICK,callback:v=>(v/1000)+'k'},grid:{color:GRID}},
+   y:{ticks:{color:TICK},grid:{display:false}}}}
 });
+
+const MAPURL='https://cdn.jsdelivr.net/npm/datamaps@0.5.10/src/js/data/nga.topo.json';
+const BREAKS=[60,70,80,90], RAMP=['#173e44','#1d6473','#2197ab','#22c0d8','#7fe7f5'];
+function mcolor(v){ if(v==null) return '#1d2942'; let i=0; while(i<BREAKS.length && v>=BREAKS[i]) i++; return RAMP[i]; }
+(function(){
+  const leg=document.getElementById('maplegend');
+  const labels=['<60%','60-70%','70-80%','80-90%','90%+'];
+  leg.innerHTML=labels.map((t,i)=>`<span><b style="background:${RAMP[i]}"></b>${t}</span>`).join('');
+  d3.json(MAPURL).then(topo=>{
+    const feats=topojson.feature(topo,topo.objects.nga).features;
+    const W=680,H=440;
+    const proj=d3.geoMercator().fitSize([W,H],{type:'FeatureCollection',features:feats});
+    const path=d3.geoPath(proj);
+    const svg=d3.select('#map').append('svg').attr('viewBox',`0 0 ${W} ${H}`).attr('width','100%').style('height','auto');
+    const tip=d3.select('#map').append('div').style('position','absolute').style('pointer-events','none')
+      .style('background','#0e1626').style('border','1px solid #1d2942').style('border-radius','6px')
+      .style('padding','6px 10px').style('font-size','12px').style('color','#d6deea').style('opacity',0);
+    svg.selectAll('path').data(feats).join('path').attr('d',path)
+      .attr('fill',d=>mcolor(COVMAP[d.properties.name]))
+      .attr('stroke','#0a0f1c').attr('stroke-width',0.6)
+      .on('mousemove',function(e,d){const v=COVMAP[d.properties.name];
+        tip.style('opacity',1).html(`<b>${d.properties.name}</b><br>${v==null?'no data':v+'% coverage'}`)
+        .style('left',(e.offsetX+12)+'px').style('top',(e.offsetY-10)+'px');})
+      .on('mouseout',()=>tip.style('opacity',0));
+  });
+})();
 </script>
-</body>
-</html>
+</body></html>

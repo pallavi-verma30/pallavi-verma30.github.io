@@ -89,6 +89,8 @@
   padding: 20px;
 }
 .chart-canvas-wrap { position: relative; width: 100%; }
+#map { position: relative; width: 100%; }
+#map svg { display: block; margin: 0 auto; max-width: 520px; }
 
 .legend {
   display: flex;
@@ -144,6 +146,52 @@
   padding: 0.1em 0.4em;
   border-radius: 4px;
 }
+
+/* Methodology writeup */
+.method-section { margin-bottom: 36px; }
+.method-section h2 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+.method-section p { color: var(--text-dim); font-size: 1rem; line-height: 1.7; margin: 0 0 14px; }
+.method-step {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 6px;
+}
+.sql-block {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  margin: 0 0 16px;
+}
+.sql-block pre { margin: 0; }
+.sql-block code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--text);
+  background: none;
+  padding: 0;
+  white-space: pre;
+}
+.source-list { list-style: none; padding: 0; margin: 0 0 14px; }
+.source-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+.source-list b { color: var(--text); font-weight: 500; }
+.source-list a { color: var(--accent); }
 
 .dash-footer {
   max-width: 1000px;

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Methodology and SQL behind the Nigeria immunization dashboard: data sources, cleaning, validation, and indicator definitions." />
+<title>How it was built — Nigeria immunization dashboard</title>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" /><link rel="stylesheet" href="/dashboard.css" />
+</head><body class="blog-body">
+<div class="bg-grid" aria-hidden="true"></div><div class="bg-glow" aria-hidden="true"></div>
+  <header class="nav-wrap"><nav class="nav">
+    <a href="/#/" class="brand"><span class="brand-mark"><span class="brand-mark-text">pv</span><span class="brand-mark-dot" aria-hidden="true"></span></span><span class="brand-name">Pallavi Verma</span></a>
+    <input type="checkbox" id="nav-check" class="nav-check" aria-label="Toggle menu" />
+    <label for="nav-check" class="nav-toggle" aria-hidden="true"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="/#/">Home</a></li><li><a href="/#/about">About</a></li><li><a href="/#/experience">Experience</a></li>
+      <li><a href="/#/ai-bot">AI Job Bot</a></li><li><a href="/blog/">Blog</a></li>
+      <li><a href="/dashboard/" class="is-active">Dashboard</a></li>
+    </ul>
+    <a href="/assets/Pallavi_Verma_Resume.pdf" class="nav-cta" download>Resume</a>
+  </nav></header>
+<main class="dash-main" style="max-width:820px">
+  <p class="dash-eyebrow"><a href="/dashboard/" style="color:var(--text-dim)">&larr; Back to dashboard</a></p>
+  <h1 class="dash-title">How the dashboard was built</h1>
+  <p class="dash-sub">The dashboard pulls from three open datasets that arrive in different shapes and with real defects. This page shows the steps and the actual SQL used to turn them into the figures on the chart, including the parts that had to be thrown away.</p>
+
+  <div class="method-section">
+    <h2>The data</h2>
+    <ul class="source-list">
+      <li><b>National coverage</b> &mdash; WHO/UNICEF estimates of immunization coverage (DTP3 and measles, by country and year, 1980 onward). Licence CC&nbsp;BY&nbsp;3.0&nbsp;IGO.</li>
+      <li><b>Child survival</b> &mdash; UN&nbsp;IGME neonatal mortality rate, by country and year. Used to set coverage against an outcome.</li>
+      <li><b>Subnational coverage</b> &mdash; WHO/UNICEF subnational (state and district) coverage, 2018, with doses administered and eligible population per district. The basis for the state map and the burden ranking.</li>
+    </ul>
+    <p>Everything here is aggregate, public, and openly licensed. No personal or facility-identifying data is involved.</p>
+  </div>
+
+  <div class="method-section">
+    <h2>The tools</h2>
+    <p>The raw files (two CSVs and an Excel workbook) were loaded into <code>DuckDB</code> and queried with SQL. SQL was chosen deliberately: every figure on the dashboard traces back to a query that anyone can read and re-run, rather than to a spreadsheet step that leaves no record.</p>
+  </div>
+
+  <div class="method-section">
+    <p class="method-step">Step 1 &middot; Build the national trend</p>
+    <h2>Joining coverage to mortality</h2>
+    <p>Three separate series (DTP3, measles, neonatal mortality) are filtered to Nigeria and lined up by year. One detail mattered: the mortality file carried two columns that differed only by capitalisation, so the filter has to use the unambiguous code columns (<code>INDICATOR</code>, <code>SEX</code>) rather than the text labels, otherwise the engine silently matches the wrong column and returns nothing.</p>
+    <div class="sql-block"><pre><code>WITH d AS (SELECT TIME_PERIOD yr, OBS_VALUE v FROM dtp3_raw WHERE &quot;Geographic area&quot;=&#x27;Nigeria&#x27;),
+     m AS (SELECT TIME_PERIOD yr, OBS_VALUE v FROM mcv1_raw WHERE &quot;Geographic area&quot;=&#x27;Nigeria&#x27;),
+     n AS (SELECT TIME_PERIOD yr, OBS_VALUE v FROM cme_raw WHERE &quot;Geographic area&quot;=&#x27;Nigeria&#x27; AND INDICATOR=&#x27;CME_MRM0&#x27; AND SEX=&#x27;_T&#x27;)
+SELECT yr, MAX(dtp3) dtp3, MAX(mcv1) mcv1, ROUND(MAX(nmr),1) nmr FROM (
+  SELECT yr,v dtp3,NULL mcv1,NULL nmr FROM d
+  UNION ALL SELECT yr,NULL,v,NULL FROM m
+  UNION ALL SELECT yr,NULL,NULL,v FROM n)
+WHERE yr BETWEEN 1984 AND 2024 GROUP BY yr ORDER BY yr;</code></pre></div>
+  </div>
+
+  <div class="method-section">
+    <p class="method-step">Step 2 &middot; Validate before trusting</p>
+    <h2>Catching impossible records</h2>
+    <p>Subnational administrative data is noisy. The first check is the simplest one that matters: a district cannot give more doses than it has eligible children. Roughly a third of the 2018 measles records fail it. They are counted, then excluded from everything downstream.</p>
+    <div class="sql-block"><pre><code>SELECT COUNT(*) total, SUM(CASE WHEN Numerator&gt;Denominator THEN 1 ELSE 0 END) impossible
+FROM sub_raw WHERE CountryName=&#x27;Nigeria&#x27; AND Vaccine=&#x27;MCV1&#x27;;</code></pre></div>
+  </div>
+
+  <div class="method-section">
+    <p class="method-step">Step 3 &middot; Rebuild state coverage</p>
+    <h2>Aggregating districts to states</h2>
+    <p>State coverage is not the average of its districts, that would weight a tiny district the same as a huge one. Instead the valid districts' doses and eligible populations are summed per state, then divided. The same query also produces the absolute number of children missed (eligible minus vaccinated), which is what drives the burden ranking.</p>
+    <div class="sql-block"><pre><code>WITH clean AS (
+  SELECT Admin1 state, Numerator num, Denominator denom
+  FROM sub_raw
+  WHERE CountryName=&#x27;Nigeria&#x27; AND Vaccine=&#x27;MCV1&#x27;
+    AND Denominator&gt;0 AND Numerator&gt;=0 AND Numerator&lt;=Denominator)
+SELECT state,
+       ROUND(100.0*SUM(num)/SUM(denom),1) coverage,
+       CAST(SUM(denom-num) AS BIGINT) children_missed,
+       COUNT(*) districts_used
+FROM clean GROUP BY state ORDER BY children_missed DESC;</code></pre></div>
+  </div>
+
+  <div class="method-section">
+    <h2>What was left out, and why</h2>
+    <p>A first-to-third-dose drop-off rate for polio was attempted and abandoned. In most states the third-dose count exceeded the first-dose count, which cannot happen in a real cohort and points to reporting problems rather than a real pattern. Showing a drop-off number built on that would have been misleading, so it was dropped rather than published with a caveat no one would read.</p>
+    <p>Two honest limits remain on what is shown. The national trend is country-wide while the state views are a single year (2018), so they are different lenses, not one continuous story. And coverage moving together with mortality is an association; many things drive child survival, and this analysis does not isolate the effect of vaccination.</p>
+  </div>
+
+  <p style="margin-top:32px"><a href="/dashboard/" style="color:var(--accent)">&larr; Back to the dashboard</a></p>
+</main>
+<footer class="dash-footer"><p>A sample analysis by Pallavi Verma, built from open data with SQL. <a href="/#/">Portfolio &rarr;</a> &middot; <a href="/blog/">Blog &rarr;</a></p></footer>
+</body></html>
