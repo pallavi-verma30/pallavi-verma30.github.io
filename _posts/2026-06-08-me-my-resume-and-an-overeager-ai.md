@@ -30,7 +30,7 @@ stay grounded, and it behaves. But then I'd be running that prompt by hand for
 every single opening, reading every draft, catching every slip, forever. That's
 the kind of discipline you run out of by Tuesday. And to be honest, I'm a little
 lazy. Building a machine to be diligent for me sounded a lot more appealing than
-becoming a diligent person. :p
+becoming a diligent person. 😛
 
 So I built the bot. It finds the openings, checks each one against my
 background, and only bothers tailoring a resume where I'm genuinely a fit; the
