@@ -124,12 +124,12 @@
 
 .post-meta {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: var(--text-soft);
-  margin: 0 0 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  margin: 16px 0 0;
+  letter-spacing: 0.02em;
 }
+.post-author { color: var(--text-dim); }
 
 .post-title {
   font-family: var(--font-display);

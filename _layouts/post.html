@@ -2,14 +2,14 @@
 layout: default
 ---
 <article class="post">
-  <a href="/blog/" class="post-back">&larr; All posts</a>
-
   <header class="post-head">
-    <p class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-      {% if page.tags and page.tags.size > 0 %} &middot; {{ page.tags | join: " &middot; " }}{% endif %}
-    </p>
     <h1 class="post-title">{{ page.title }}</h1>
+    {% assign rt = content | number_of_words | divided_by: 200.0 | ceil %}
+    <p class="post-meta">
+      <span class="post-author">Pallavi Verma</span> &middot;
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time> &middot;
+      {{ rt }} min read
+    </p>
     {% if page.subtitle %}<p class="post-subtitle">{{ page.subtitle }}</p>{% endif %}
   </header>
 
