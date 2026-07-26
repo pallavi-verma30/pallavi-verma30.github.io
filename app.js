@@ -47,13 +47,13 @@
     }
 
     const titles = {
-      '/': 'Pallavi Verma — Digital Health Program Delivery',
-      '/about': 'About — Pallavi Verma',
-      '/experience': 'Experience — Pallavi Verma',
-      '/programs': 'Programs — Pallavi Verma',
-      '/behind-the-work': 'Behind the work — Pallavi Verma',
-      '/ai-bot': 'AI Job Bot — Pallavi Verma',
-      '/education': 'Education — Pallavi Verma'
+      '/': 'Pallavi Verma · Technical Project Analyst',
+      '/about': 'About · Pallavi Verma',
+      '/experience': 'Experience · Pallavi Verma',
+      '/programs': 'Projects · Pallavi Verma',
+      '/behind-the-work': 'Behind the work · Pallavi Verma',
+      '/ai-bot': 'AI Job Bot · Pallavi Verma',
+      '/education': 'Education · Pallavi Verma'
     };
 
     function showRoute(route) {
